@@ -28,7 +28,7 @@ export default function LoginPage() {
         toast.error('メールアドレスかパスワードに誤りがあります')
       }else if(response.status === 402){
         toast.error('お使いのアカウントは現在アクセスできません。ログインするには担当の管理者までお知らせください。')
-      }else if(response.status === 200 && response.data){
+      }else if(response.status === 200 && response.data.userData){
         router.push('/')
       }
     } catch (err:any) {

@@ -18,19 +18,9 @@ export async function POST(request:NextRequest){
             }else if(!checked){
                 return NextResponse.json({status:401,message:"password not matched"})
             }
-
-        }else {
-            const newUser = new User({
-                username:'Jabbar',
-                password:password,
-                email:email,
-                DOB:'07/07/1996'
-            })
-            const saved = await newUser.save()
-            return NextResponse.json({status:200,saved})
-            
         }
+        return NextResponse.json({status:401,messaage:"there is no User Found"})
     } catch (error) {
         console.log(error);
-    }
+    } 
 }

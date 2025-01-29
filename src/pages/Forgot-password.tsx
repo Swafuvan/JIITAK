@@ -2,9 +2,10 @@
 
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Link, Loader2 } from "lucide-react";
+
 import Navbar from "@/ui/Navbar"
+import { Button } from "@/components/ui/button";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
@@ -41,17 +42,18 @@ export default function ForgotPasswordPage() {
           <div className="space-y-2 text-center">
             <h1 className="text-2xl font-semibold">パスワード再設定</h1>
             <p className="text-sm font-medium text-gray-600">
-            現在使っているメールアドレスを入力してください。<br />  パスワード再設定用のURLをメールで送信いたします。
+                現在使っているメールアドレスを入力してください。<br />
+                パスワード再設定用のURLをメールで送信いたします。
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-semibold">
+            <label htmlFor="email" className="text-sm font-semibold">
                 メールアドレス
-              </label>
+            </label>
               <Input
-                id="email"
+                id="email" 
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -71,7 +73,7 @@ export default function ForgotPasswordPage() {
               className="w-full bg-orange-300 font-semibold rounded-full hover:bg-orange-400 text-white"
               disabled={isSubmitting}
             >
-              {isSubmitting ? <Loader2Icon/> : "パスワード再設定用URLを送信する"}
+              {isSubmitting ? <Loader2 className="animate-spin" /> : "パスワード再設定用URLを送信する"}
             </Button>
           </form>
 
