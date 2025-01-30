@@ -1,13 +1,5 @@
+import { LoginPage } from "@/assets";
 
-import React from 'react'
-import LoginPage from '../../pages/Login'
-
-const LPage = () => {
-  return (
-    <div>
-      <LoginPage/>
-    </div>
-  )
+export default function Login() {
+  return <LoginPage />;
 }
-
-export default LPage

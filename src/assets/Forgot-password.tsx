@@ -2,12 +2,15 @@
 
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
-import { Link, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
 import Navbar from "@/ui/Navbar"
 import { Button } from "@/components/ui/button";
+import axios from "axios";
+import toast from "react-hot-toast";
 
-export default function ForgotPasswordPage() {
+export function ForgotPasswordPage() {
   const [email, setEmail] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [message, setMessage] = useState("")
@@ -18,11 +21,16 @@ export default function ForgotPasswordPage() {
     setMessage("")
 
     try {
-      // Handle password reset logic here
-      // For now, just simulate an API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setMessage("Password reset link has been sent to your email")
+      const datas = await axios.post('/api/forgot-password',{email:email});
+      if(datas.status===200){
+        toast.success('パスワード再設定用のURLを送信しました。メールを確認してください。')
+      }else if(datas.data.message === 'email not-found'){
+        toast.error('パスワード再設定用URLの送信に失敗しました。もう一度お試しください。')
+      }
+    //   await new Promise((resolve) => setTimeout(resolve, 1000))
+    //   setMessage("Password reset link has been sent to your email")
     } catch (error) {
+      toast.error('サーバーエラーが発生しました。もう一度お試しください。')
       setMessage("Failed to send reset link. Please try again.")
     } finally {
       setIsSubmitting(false)

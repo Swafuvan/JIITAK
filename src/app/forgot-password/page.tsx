@@ -1,12 +1,7 @@
-import ForgotPasswordPage from '@/pages/Forgot-password'
-import React from 'react'
+import { ForgotPasswordPage } from "@/assets"
 
-const Page = () => {
-  return (
-    <div>
-      <ForgotPasswordPage/>
-    </div>
-  )
+export default function ForgotPassword(){
+  return <ForgotPasswordPage /> 
 }
 
-export default Page
+

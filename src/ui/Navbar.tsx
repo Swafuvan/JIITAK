@@ -4,12 +4,12 @@ import Link from 'next/link'
 
 export default function Navbar() {
     return (
-        <nav className="w-full bg-white shadow-[0px_1px_0px_black]">
+        <nav className="w-full bg-white ">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="relative w-24 h-8 ">
+                            <div className="relative w-20 h-7 ">
                                 <svg width="188" className='' height="31" viewBox="0 0 188 31" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g clipPath="url(#clip0_1935_73)">
                                         <path d="M23.2959 10.3354L21.0836 13.4968L21.0664 13.5254V17.4528H23.2502V20.9285H24.4336V10.3354H23.2959ZM22.2498 16.2694V13.897L23.2502 12.4735V16.2694H22.2498Z" fill="#FF9500" />
