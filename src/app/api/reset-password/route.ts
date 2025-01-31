@@ -11,16 +11,13 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ message: "トークンとパスワードが必要です。" }, { status: 400 });
         }
 
-        // Find user by token
         const user = await User.findOne({ resetToken: token });
         if (!user) {
             return NextResponse.json({ message: "無効なまたは期限切れのトークンです。" }, { status: 400 });
         }
 
-        // Hash new password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Update user password & clear token
         user.password = hashedPassword;
         user.resetToken = null;
         await user.save();

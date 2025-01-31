@@ -1,7 +1,7 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { User } from "@/model/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import bcryptjs, { genSalt } from "bcryptjs";
+import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {

@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     await connect();
     const { email } = await req.json();
 
-    // Check if the user exists in the database
+    
     const user = await User.findOne({ email });
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -21,19 +21,18 @@ export async function POST(req: NextRequest) {
     );
     const resetToken = JWTToken
     user.resetToken = resetToken;
-    user.resetTokenExpiry = Date.now() + 3600000; // 1 hour expiry
+    user.resetTokenExpiry = Date.now() + 3600000;
     const after = await user.save();
     if (after) {
-      // Create a transporter (use your SMTP settings)
+     
       const transporter = nodemailer.createTransport({
-        service: "Gmail", // or use SMTP settings
+        service: "Gmail", 
         auth: {
-          user: process.env.EMAIL_USER, // Your email
-          pass: process.env.EMAIL_PASS, // Your email password or app password
+          user: process.env.EMAIL_USER, 
+          pass: process.env.EMAIL_PASS, 
         },
       });
 
-      // Email details
       const resetUrl = `${process.env.BASE_URL}/reset-password?token=${resetToken}`;
       console.log(resetUrl);
       const mailOptions = {
@@ -47,7 +46,6 @@ export async function POST(req: NextRequest) {
                <p>このリンクは1時間で無効になります。</p>`,
       };
 
-      // Send the email
       await transporter.sendMail(mailOptions);
 
       return NextResponse.json(

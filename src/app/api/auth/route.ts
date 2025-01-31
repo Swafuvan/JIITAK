@@ -1,6 +1,6 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextRequest, NextResponse } from "next/server";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { BadRequestError, NotFoundError } from "@/helper/customError";
 import { User } from "@/model/userModel";
 import { TokenPayload } from "@/types";
