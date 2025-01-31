@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Navbar from "@/ui/Navbar";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -15,26 +15,25 @@ export function LoginPage() {
     showPassword,
     validationSchema,
     togglePassword,
+    isSubmitting,
+    loading
   } = useLogin();
 
-  if (!mounted) return null; // Prevent hydration mismatch
+  if (!mounted) return null; 
 
   return (
     <div>
       <div className="min-h-screen bg-white">
-        {/* Logo */}
         <div className="fixed top-2 left-2">
           <Navbar />
         </div>
 
-        {/* Login Form */}
         <div className="flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-4">
           <div className="w-full space-y-6">
             <h1 className="text-2xl font-semibold text-center mb-8">
               ログイン
             </h1>
 
-            {/* Formik Wrapper */}
             <Formik
               initialValues={{ email: "", password: "" }}
               validationSchema={validationSchema}
@@ -86,9 +85,14 @@ export function LoginPage() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-orange-300 rounded-full hover:bg-orange-400 text-white"
+                    className="w-full bg-orange-300 rounded-full hover:bg-orange-400 text-white flex justify-center items-center"
+                    disabled={loading || isSubmitting}
                   >
-                    ログイン
+                    {loading || isSubmitting ? (
+                      <Loader2 className="animate-spin h-5 w-5" />
+                    ) : (
+                      "ログイン"
+                    )}
                   </Button>
                 </Form>
               )}

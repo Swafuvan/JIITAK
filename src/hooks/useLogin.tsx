@@ -7,6 +7,7 @@ import * as Yup from "yup";
 export function useLogin() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
@@ -14,7 +15,6 @@ export function useLogin() {
     setMounted(true);
   }, []);
 
-  // Validation Schema using Yup
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("正しいメールアドレスを入力してください")
@@ -24,12 +24,12 @@ export function useLogin() {
       .required("パスワードは必須です"),
   });
 
-  // Form Submission Handler
   const togglePassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (values: { email: string; password: string }) => {
-    setIsSubmitting(true);
     try {
+      setIsSubmitting(true);
+      setLoading(true);
       console.log("Login attempt with:", values);
       const response = await axios.post("/api/login", values);
 
@@ -49,6 +49,7 @@ export function useLogin() {
       
     } finally {
       setIsSubmitting(false);
+      setLoading(false);
     }
   };
   return {
@@ -59,5 +60,6 @@ export function useLogin() {
     togglePassword,
     router,
     showPassword,
+    loading
   };
 }

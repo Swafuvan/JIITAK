@@ -1,77 +1,54 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-
-import Navbar from "@/ui/Navbar"
+import Navbar from "@/ui/Navbar";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
-import toast from "react-hot-toast";
+import { useForgotPassword } from "@/hooks";
 
 export function ForgotPasswordPage() {
-  const [email, setEmail] = useState("")
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [message, setMessage] = useState("")
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setMessage("")
-
-    try {
-      const datas = await axios.post('/api/forgot-password',{email:email});
-      if(datas.status===200){
-        toast.success('パスワード再設定用のURLを送信しました。メールを確認してください。')
-      }else if(datas.data.message === 'email not-found'){
-        toast.error('パスワード再設定用URLの送信に失敗しました。もう一度お試しください。')
-      }
-    //   await new Promise((resolve) => setTimeout(resolve, 1000))
-    //   setMessage("Password reset link has been sent to your email")
-    } catch (error) {
-      toast.error('サーバーエラーが発生しました。もう一度お試しください。')
-      setMessage("Failed to send reset link. Please try again.")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  const { email, handleSubmit, isSubmitting, message, handleEmail } =
+    useForgotPassword();
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Logo */}
       <div className="fixed top-2 left-2">
-        <Navbar/>
+        <Navbar />
       </div>
 
-      {/* Reset Form */}
       <div className="flex flex-col items-center justify-center min-h-screen max-w-md mx-auto px-4">
         <div className="w-full space-y-6">
           <div className="space-y-2 text-center">
             <h1 className="text-2xl font-semibold">パスワード再設定</h1>
             <p className="text-sm font-medium text-gray-600">
-                現在使っているメールアドレスを入力してください。<br />
-                パスワード再設定用のURLをメールで送信いたします。
+              現在使っているメールアドレスを入力してください。
+              <br />
+              パスワード再設定用のURLをメールで送信いたします。
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-semibold">
+              <label htmlFor="email" className="text-sm font-semibold">
                 メールアドレス
-            </label>
+              </label>
               <Input
-                id="email" 
+                id="email"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmail}
                 required
                 disabled={isSubmitting}
               />
             </div>
 
             {message && (
-              <p className={`text-sm text-center ${message.includes("Failed") ? "text-red-600" : "text-green-600"}`}>
+              <p
+                className={`text-sm text-center ${
+                  message.includes("Failed") ? "text-red-600" : "text-green-600"
+                }`}
+              >
                 {message}
               </p>
             )}
@@ -81,18 +58,24 @@ export function ForgotPasswordPage() {
               className="w-full bg-orange-300 font-semibold rounded-full hover:bg-orange-400 text-white"
               disabled={isSubmitting}
             >
-              {isSubmitting ? <Loader2 className="animate-spin" /> : "パスワード再設定用URLを送信する"}
+              {isSubmitting ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                "パスワード再設定用URLを送信する"
+              )}
             </Button>
           </form>
 
           <div className="text-center">
-            <Link href="/login" className="text-sm text-gray-600 font-semibold hover:text-gray-800">
-                ログイン画面にもどる
+            <Link
+              href="/login"
+              className="text-sm text-gray-600 font-semibold hover:text-gray-800"
+            >
+              ログイン画面にもどる
             </Link>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
