@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { User } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface User {
   id: number;

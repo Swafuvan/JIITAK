@@ -9,10 +9,19 @@ export function useLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const validationSchema = Yup.object({
@@ -45,13 +54,13 @@ export function useLogin() {
         toast.error("ログインに失敗しました。もう一度お試しください。");
       }
     } catch (err: any) {
-      toast.error(err.response.data.message+'jijjijij');
-      
+      toast.error(err.response.data.message + "jijjijij");
     } finally {
       setIsSubmitting(false);
       setLoading(false);
     }
   };
+  
   return {
     isSubmitting,
     handleSubmit,
@@ -60,6 +69,8 @@ export function useLogin() {
     togglePassword,
     router,
     showPassword,
-    loading
+    loading,
+    isLoading,
+    setIsLoading
   };
 }

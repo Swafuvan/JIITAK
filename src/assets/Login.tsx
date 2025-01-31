@@ -7,6 +7,9 @@ import Link from "next/link";
 import Navbar from "@/ui/Navbar";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useLogin } from "@/hooks";
+import { LoadingPage } from "@/ui/Loading";
+import { useEffect } from "react";
+
 
 export function LoginPage() {
   const {
@@ -16,10 +19,19 @@ export function LoginPage() {
     validationSchema,
     togglePassword,
     isSubmitting,
-    loading
+    loading,
+    isLoading,
+    setIsLoading
   } = useLogin();
 
-  if (!mounted) return null; 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); 
+    }, 2000);
+    return () => clearTimeout(timer); 
+  }, []);
+
+  if (!mounted || isLoading) return <LoadingPage/>; 
 
   return (
     <div>
