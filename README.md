@@ -53,4 +53,24 @@ Follow the steps below to set up and run the project locally:
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
+   git clone <repository-url> 
+
+2. **Navigate to the project folder:**
+    ```bash
+    cd <project-directory>
+
+3. **Install dependencies:**
+    ```bash
+    npm install
+
+4. **Set up environment variables:**
+    ```bash
+    MONGO_URI=<your-mongo-db-connection-string>
+    JWT_SECRET=<your-jwt-secret-key>
+
+5. **Start the development server:**
+    ```bash
+    npm run dev
+
+
+
