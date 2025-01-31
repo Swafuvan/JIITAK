@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 export function useResetpassword() {
   const searchParams = useSearchParams();
   const token = searchParams?.get("token");
+  const router = useRouter()
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -61,6 +62,7 @@ export function useResetpassword() {
   return {
     formik,
     token,
+    router,
     showPassword,
     showConfirmPassword,
     handleConfirmPassword,

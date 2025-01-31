@@ -26,7 +26,6 @@ export function useForgotPassword() {
       
     } catch (error) {
       toast.error("サーバーエラーが発生しました。もう一度お試しください。");
-      setMessage("Failed to send reset link. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

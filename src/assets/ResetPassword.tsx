@@ -12,7 +12,13 @@ export function ResetPasswordPage() {
     handleShowPassword,
     showConfirmPassword,
     showPassword,
+    token,
+    router
   } = useResetpassword();
+
+  if(!token){
+    router.push('/login')
+  }
 
   return (
     <div className="min-h-screen bg-white">
